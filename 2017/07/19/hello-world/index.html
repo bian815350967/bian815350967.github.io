@@ -1,0 +1,712 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="路由: ​        一个应用是由若个视图组合而成的，根据不同的业务逻辑展示给用户不同的视图 ，路由则是实现这一功能的关键.              ​        在后端开发中通过URL地址可以实现页面（视图）的切换，但是AngularJS是一个纯前端MVC框架，    ​        在开发单页面应用时，所有功能都在同一页面完成，所以无需切换URL地址（即不允许产生跳转），    ​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AngularJs路由的配置">
+<meta property="og:url" content="http://yoursite.com/2017/07/19/hello-world/index.html">
+<meta property="og:site_name" content="播客">
+<meta property="og:description" content="路由: ​        一个应用是由若个视图组合而成的，根据不同的业务逻辑展示给用户不同的视图 ，路由则是实现这一功能的关键.              ​        在后端开发中通过URL地址可以实现页面（视图）的切换，但是AngularJS是一个纯前端MVC框架，    ​        在开发单页面应用时，所有功能都在同一页面完成，所以无需切换URL地址（即不允许产生跳转），    ​">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-19T16:23:42.265Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AngularJs路由的配置">
+<meta name="twitter:description" content="路由: ​        一个应用是由若个视图组合而成的，根据不同的业务逻辑展示给用户不同的视图 ，路由则是实现这一功能的关键.              ​        在后端开发中通过URL地址可以实现页面（视图）的切换，但是AngularJS是一个纯前端MVC框架，    ​        在开发单页面应用时，所有功能都在同一页面完成，所以无需切换URL地址（即不允许产生跳转），    ​">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/19/hello-world/"/>
+
+
+
+
+
+  <title> AngularJs路由的配置 | 播客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">播客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            照片
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈长征">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="播客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                AngularJs路由的配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T14:40:43+08:00">
+                2017-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="路由"><a href="#路由" class="headerlink" title="路由:"></a>路由:</h2><ul>
+<li><p>​        一个应用是由若个视图组合而成的，根据不同的业务逻辑展示给用户不同的视图 ，路由则是实现这一功能的关键.            </p>
+</li>
+<li><p>​        在后端开发中通过URL地址可以实现页面（视图）的切换，但是AngularJS是一个纯前端MVC框架，  </p>
+</li>
+<li><p>​        在开发单页面应用时，所有功能都在同一页面完成，所以无需切换URL地址（即不允许产生跳转），  </p>
+</li>
+<li><p>​        但Web应用中又经常通过链接（a标签）来更新页面（视图），当点击链接时还要阻止其向服务器发起请求，  </p>
+</li>
+<li><p>​        通过锚点（页内跳转）可以实现这一点。  </p>
+<h2 id="路由参数"><a href="#路由参数" class="headerlink" title="路由参数:"></a>路由参数:</h2></li>
+<li><p>​        1、提供两个方法匹配路由，分别是when和otherwise，when方法需要两个参数，  </p>
+</li>
+<li><p>​            otherwise方法做为when方法的补充只需要一个参数，其中when方法可以被多次调用。  </p>
+</li>
+<li><p>​        2、第1个参数是一个字符串，代表当前URL中的hash值。  </p>
+</li>
+<li><p>​        3、第2个参数是一个对象，配置当前路由的参数，如视图、控制器等。  </p>
+</li>
+<li><p>​            a、template 字符串形式的视图模板  </p>
+</li>
+<li><p>​            b、templateUrl 引入外部视图模板  </p>
+</li>
+<li><p>​            c、controller 视图模板所属的控制器  </p>
+</li>
+<li><p>​            d、redirectTo跳转到其它路由  </p>
+</li>
+<li><p>​        4、获取参数，在控制中注入$routeParams可以获取传递的参数    </p>
+<h2 id="SPA-Single-Page-Application-指的是通单一页面展示所有功能，"><a href="#SPA-Single-Page-Application-指的是通单一页面展示所有功能，" class="headerlink" title="SPA:(Single Page Application)指的是通单一页面展示所有功能，"></a>SPA:(Single Page Application)指的是通单一页面展示所有功能，</h2></li>
+<li><p>​            通过Ajax动态获取数据然后进行实时渲染， 结合CSS3动画模仿原生App交互，  </p>
+</li>
+<li><p>​            然后再进行打包（使用工具把Web应用包一个壳， 这个壳本质上是浏览器）变成一个“原生”应用。  </p>
+</li>
+<li><p>​        在PC端也有广泛的应用，通常情况下使用Ajax异步请求数据，然后实现内容局部刷新，  </p>
+</li>
+<li><p>​            局部刷新的本质是动态生成DOM，新生成的DOM元素并没有真实存在于文档中，  </p>
+</li>
+<li><p>​            所以当再次刷新页面时新添加的DOM元素会“丢失”，通过单页面应可以很好的解决这个问题           </p>
+<h2 id="SPA-单页面应用条件"><a href="#SPA-单页面应用条件" class="headerlink" title="SPA(单页面应用条件):"></a>SPA(单页面应用条件):</h2></li>
+<li><p>​        1、只有一页面  </p>
+</li>
+<li><p>​        2、链接使用锚点     </p>
+<h2 id="hashchange"><a href="#hashchange" class="headerlink" title="hashchange:"></a>hashchange:</h2></li>
+<li><p>​        AngularJs实现单一页面可以通过hashchange事件监听到锚点的变化，  </p>
+</li>
+<li><p>​            进而可以实现为不同的锚点准备不同的视图，单页面应用就是基于这一原理实现的。  </p>
+</li>
+<li><p>​        AngularJS对这一实现原理进行了封装，将锚点的变化封装成路由（Route）,这是与后端路由的根本区别。  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">App.config([<span class="string">'$routeProvider'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$routeProvider</span>) </span>&#123;  </div><div class="line">  </div><div class="line">            $routeProvider.when(<span class="string">'/index'</span>, &#123;  </div><div class="line">                <span class="comment">// template: '&lt;h1&gt;index Pages!&lt;/h1&gt;',  </span></div><div class="line">                templateUrl: <span class="string">'./abc.html'</span>  </div><div class="line">            &#125;)  </div><div class="line">            .when(<span class="string">'/introduce'</span>, &#123;  </div><div class="line">                <span class="attr">template</span>: <span class="string">'&lt;h1&gt;introduce Pages!&lt;/h1&gt;'</span>  </div><div class="line">            &#125;)  </div><div class="line">            .when(<span class="string">'/contact'</span>, &#123;  </div><div class="line">                <span class="comment">// template: '&lt;h1&gt;contact US Pages!&lt;/h1&gt;',  </span></div><div class="line">                templateUrl: <span class="string">'./contact.html'</span>,  </div><div class="line">                <span class="attr">controller</span>: <span class="string">'ContactController'</span> <span class="comment">// 定义控制器  </span></div><div class="line">            &#125;)  </div><div class="line">            .when(<span class="string">'/list'</span>, &#123;  </div><div class="line">                <span class="attr">templateUrl</span>: <span class="string">'./list.html'</span>, <span class="comment">// 视图模板  </span></div><div class="line">                controller: <span class="string">'ListController'</span> <span class="comment">// 定义控制器  </span></div><div class="line">            &#125;)  </div><div class="line">            .otherwise(&#123;  </div><div class="line">                <span class="attr">redirectTo</span>: <span class="string">'/index'</span>  </div><div class="line">            &#125;);  </div><div class="line">  </div><div class="line">        &#125;]);</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/19/陈长征个人博客/" rel="prev" title="陈长征个人博客">
+                陈长征个人博客 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/blog.jpg"
+               alt="陈长征" />
+          <p class="site-author-name" itemprop="name">陈长征</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#路由"><span class="nav-number">1.</span> <span class="nav-text">路由:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由参数"><span class="nav-number">2.</span> <span class="nav-text">路由参数:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPA-Single-Page-Application-指的是通单一页面展示所有功能，"><span class="nav-number">3.</span> <span class="nav-text">SPA:(Single Page Application)指的是通单一页面展示所有功能，</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPA-单页面应用条件"><span class="nav-number">4.</span> <span class="nav-text">SPA(单页面应用条件):</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hashchange"><span class="nav-number">5.</span> <span class="nav-text">hashchange:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈长征</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

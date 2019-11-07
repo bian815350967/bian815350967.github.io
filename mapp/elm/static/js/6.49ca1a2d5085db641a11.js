@@ -1,0 +1,2 @@
+webpackJsonp([6],{"20V7":function(t,e){},sUew:function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var s={render:function(){var t=this.$createElement;return(this._self._c||t)("div",{staticClass:"goods-w"},[this._v("\n  商品\n")])},staticRenderFns:[]};var a=n("VU/8")({data:function(){return{}}},s,!1,function(t){n("20V7")},"data-v-3ba7669b",null);e.default=a.exports}});
+//# sourceMappingURL=6.49ca1a2d5085db641a11.js.map
